@@ -28,7 +28,7 @@ function Main() {
         <Offcanvas.Body>
           <Link to="/counter">
             <div>counter</div>
-            <div>test</div>
+            
           </Link>
           <Link to="/memo">
             <div>Memo</div>
