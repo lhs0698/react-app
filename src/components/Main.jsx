@@ -28,10 +28,12 @@ function Main() {
         <Offcanvas.Body>
           <Link to="/counter">
             <div>counter</div>
-            
           </Link>
           <Link to="/memo">
             <div>Memo</div>
+          </Link>
+          <Link to="/Users">
+            <div>Users_Json OpenAPI</div>
           </Link>
         </Offcanvas.Body>
       </Offcanvas>
