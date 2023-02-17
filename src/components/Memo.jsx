@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState,} from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 
@@ -26,58 +26,50 @@ const Button = styled.button`
 `;
 
 function Memo() {
-  const [inputs, setInputs] = useState({
-    username: "",
-    email: "",
-  });
-  const { username, email } = inputs;
 
+  const [memos, setMemos] = useState([]);
+  const [inputValue, setInputValue] = useState('');
+  // const [update, setUpdate] = useState(null);
+
+
+  // input 상태 
   const onChange = (e) => {
-    const { name, value } = e.target;
-    setInputs({
-      ...inputs,
-      [name]: value,
-    });
-  };
-  const [users, setUsers] = useState([
-    {
-      id: 1,
-      username: "유현수1",
-      email: "yohs0698@naver.com",
-    },
-    {
-      id: 2,
-      username: "유현수2",
-      email: "9888jinnn@naver.com",
-    },
-    {
-      id: 3,
-      username: "유현수3",
-      email: "yohs0698@alt-a.net",
-    },
-  ]);
+    setInputValue(e.target.value)
+  }
 
-  const nextId = useRef(4);
+  // 추가하기
   const onCreate = () => {
-    const user = {
-      id: nextId.current,
-      username,
-      email,
-    };
-    setUsers([...users, user]);
-
-    setInputs({
-      username,
-      email
-    });
-    nextId.current += 1;
-    console.log(users);
-  };
-
-  // const onRemove = (id) => {
-  //   setUsers(users.filter(user => user.id !== id ))
-  //   console.log(users)
+    setMemos([...memos, inputValue]);
+    setInputValue('')
+  }
+  
+  // update 하기 위한 onCreate 추가 
+  // const onCreate = () => {
+  //   if (update === null) {
+  //     setMemos([...memos, inputValue])
+  //   } else {
+  //     const newMemos = [...memos];
+  //     newMemos[update] = inputValue;
+  //     setMemos(newMemos);
+  //     setUpdate(null)
+  //   }
+  //   setInputValue('');
   // }
+  
+  // 삭제
+  const onRemove = (index) => {
+    const newmemos = [...memos];
+    newmemos.splice(index,1);
+    setMemos(newmemos);
+  }
+  
+  // //수정하기
+  // const onUpdate = (index) => {
+  //   setUpdate(index);
+  //   setInputValue(memos[index])
+  // }
+
+  console.log(memos)
 
   return (
     <Container>
@@ -87,31 +79,44 @@ function Memo() {
             <Button>메인 페이지 이동</Button>
           </Link>
         </div>
-        <input
-          type="text"
-          placeholder="username"
-          onChange={onChange}
-          name="username"
-        />
-        <input
-          type="text"
-          placeholder="email"
-          onChange={onChange}
-          name="email"
-        />
+        <div>todolist</div>
+        
+        <ul>
+          {
+            memos.map((memo, index) => (
+              <li key={index}>
+                {memo} <button onClick={onRemove}>제거</button>
+              </li>
+            ))
+          }
+        </ul>
+        <input type="text" value={inputValue} onChange={onChange} />
         <button onClick={onCreate}>추가</button>
+
+        {/* <ul>
+          {
+            memos.map((memo, index) => (
+              <li key={index}>
+                {update === index ? (
+                  <>
+                    <input type="text" value={inputValue} onChange={onChange} />
+                    <button onClick={onCreate}>추가</button>
+                    <button onClick={setUpdate(null)}>cancel</button>
+                  </>
+                ) : (
+                  <>
+                    {memo}
+                    <button onClick={onUpdate}>update</button>
+                    <button onClick={onRemove}>Remove</button>
+                  </>
+                )}
+              </li>
+            ))
+          }
+        </ul>
+        <input type="text" value={inputValue} onChange={onChange} />
+        <button onClick={onCreate}>{update === null ? '추가' : '수정'}</button> */}
         
-        
-        {
-          users.map(user => {
-            return (
-              <div key={user.id}>
-                <div>{user.username} {user.email}</div>
-                {/* <button onClick={onRemove}>제거</button> */}
-              </div>
-            )
-          })
-        }
       </CounterBox>
     </Container>
   );
