@@ -22,7 +22,7 @@ function Main() {
         <BsJustify size="35" onClick={handleShow} />
         <Offcanvas show={show} onHide={handleClose}>
           <Offcanvas.Header closeButton>
-            <Offcanvas.Title>하고 싶은거</Offcanvas.Title>
+            <Offcanvas.Title><b>LIST</b></Offcanvas.Title>
           </Offcanvas.Header>
           <Offcanvas.Body>
             <Link to="/counter">
@@ -38,7 +38,7 @@ function Main() {
         </Offcanvas>
         <div className="body">
           <div className="loading">
-            <span>loading...</span>
+            <span>돌아가</span>
           </div>
         </div>
       </MainContainer>
